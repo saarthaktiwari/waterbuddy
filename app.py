@@ -165,12 +165,12 @@ elif st.session_state.page == "dashboard":
     with st.sidebar:
         st.title("⚙️ Settings")
         st.text_input("Name", value=st.session_state.user_name, key="user_name")
-        selected_age = st.selectbox("Age Group", options=list(age_groups.keys()), index=list(age_groups.keys()).index(st.session_state.age_group))
-        if selected_age != st.session_state.age_group:
-            st.session_state.age_group = selected_age
-            st.session_state.goal_ml = age_groups[selected_age]["goal_ml"]
-        st.write(f"Daily Goal: {st.session_state.goal_ml / 1000:.2f} Liters")
-        new_goal = st.number_input("Adjust Goal (ml)", value=st.session_state.goal_ml, step=50)
+        selected_age = st.selectbox("Age Group", options=list(age_groups.keys()), index=list(age_groups.keys()).index(st.session_state.age_group), key="age_group_select")
+        st.session_state.age_group = selected_age
+        default_goal = age_groups[selected_age]["goal_ml"]
+        st.session_state.goal_ml = default_goal
+        st.write(f"Daily Goal: {default_goal / 1000:.2f} Liters")
+        new_goal = st.number_input("Adjust Goal (ml)", value=default_goal, step=50, key="goal_input")
         st.session_state.goal_ml = new_goal
         st.markdown("🔒 All data is stored locally on your device.")
         if st.button("❌ Reset Profile"):
