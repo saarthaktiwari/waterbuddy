@@ -1,5 +1,7 @@
 import streamlit as st
 import random
+import pandas as pd
+import altair as alt
 
 # ------------------ Setup ------------------
 st.set_page_config(page_title="WaterBuddy", layout="centered")
@@ -21,6 +23,10 @@ if "history" not in st.session_state:
     st.session_state.history = []
 if "average_intake" not in st.session_state:
     st.session_state.average_intake = 0
+if "weekly_data" not in st.session_state:
+    st.session_state.weekly_data = [0] * 7
+if "day_index" not in st.session_state:
+    st.session_state.day_index = 0
 
 # ------------------ Age Groups ------------------
 age_groups = {
@@ -62,6 +68,8 @@ elif st.session_state.page == "dashboard":
     st.markdown(f"Hello, **{st.session_state.user_name}**! 🌟")
     
     if st.button("🔄 New Day"):
+        st.session_state.weekly_data[st.session_state.day_index % 7] = st.session_state.total_intake
+        st.session_state.day_index += 1
         st.session_state.total_intake = 0
         st.session_state.history = []
     
@@ -140,9 +148,18 @@ elif st.session_state.page == "dashboard":
         for i, amount in enumerate(st.session_state.history, 1):
             st.write(f"Drink {i}: {amount} ml")
     
-    # Weekly Overview (Placeholder)
+    # Weekly Overview
     st.subheader("📆 7 Day Overview")
-    st.bar_chart([0, 0, 0, 0, 0, 0, total])
+    days = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"]
+    df = pd.DataFrame({
+        "Day": days,
+        "Water (ml)": st.session_state.weekly_data
+    })
+    chart = alt.Chart(df).mark_bar().encode(
+        x="Day",
+        y="Water (ml)"
+    )
+    st.altair_chart(chart, use_container_width=True)
 
     # Settings
     with st.sidebar:
