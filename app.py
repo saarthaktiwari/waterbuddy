@@ -73,13 +73,13 @@ else:
 # ------------------ Mascot Reaction ------------------
 st.subheader("🐢 WaterBuddy Mascot")
 if progress >= 100:
-    st.image("https://cdn.pixabay.com/photo/2020/04/25/09/44/turtle-5090966_1280.png", caption="Mascot claps! 🐢")
+    st.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", caption="Mascot claps! 🐢")
 elif progress >= 75:
-    st.image("https://cdn.pixabay.com/photo/2020/04/25/09/44/turtle-5090964_1280.png", caption="Mascot waves! 🐢")
+    st.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", caption="Mascot waves! 🐢")
 elif progress >= 50:
-    st.image("https://cdn.pixabay.com/photo/2020/04/25/09/44/turtle-5090965_1280.png", caption="Mascot smiles! 🐢")
+    st.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", caption="Mascot smiles! 🐢")
 else:
-    st.image("https://cdn.pixabay.com/photo/2020/04/25/09/44/turtle-5090963_1280.png", caption="Mascot encourages you! 🐢")
+    st.image("https://cdn-icons-png.flaticon.com/512/616/616408.png", caption="Mascot encourages you! 🐢")
 
 # ------------------ Daily Tips ------------------
 tips = [
