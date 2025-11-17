@@ -79,7 +79,19 @@ elif st.session_state.page == "dashboard":
     
     # Stats
     st.subheader("📈 Your Stats")
-    st.write("😴 Status: Thirsty" if total == 0 else "😊 Status: Hydrated")
+    if progress == 0:
+        st.write("😴 Status: Thirsty")
+    elif progress < 25:
+        st.write("😐 Status: Less thirsty")
+    elif progress < 50:
+        st.write("🙂 Status: Getting there")
+    elif progress < 75:
+        st.write("😊 Status: Feeling better")
+    elif progress < 100:
+        st.write("😄 Status: Almost there")
+    else:
+        st.write("🥳 Status: Fully hydrated")
+    
     st.write(f"🔥 Day Streak: {st.session_state.streak} days")
     st.write(f"🥤 Total Today: {len(st.session_state.history)} drinks")
     st.write(f"📊 Average: {st.session_state.average_intake} ml")
@@ -99,6 +111,14 @@ elif st.session_state.page == "dashboard":
     if col4.button("Large Bottle\n750ml"):
         st.session_state.total_intake += 750
         st.session_state.history.append(750)
+
+    # Custom Add
+    st.markdown("#### Or enter a custom amount:")
+    custom_amount = st.number_input("💧 Custom amount (ml)", min_value=0, step=50, key="custom_input")
+    if st.button("Add Custom Amount"):
+        if custom_amount > 0:
+            st.session_state.total_intake += custom_amount
+            st.session_state.history.append(custom_amount)
     
     # Tips
     st.subheader("💡 Daily Hydration Tips")
