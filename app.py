@@ -165,7 +165,10 @@ elif st.session_state.page == "dashboard":
     with st.sidebar:
         st.title("⚙️ Settings")
         st.text_input("Name", value=st.session_state.user_name, key="user_name")
-        st.selectbox("Age Group", options=list(age_groups.keys()), index=list(age_groups.keys()).index(st.session_state.age_group), key="age_group")
+        selected_age = st.selectbox("Age Group", options=list(age_groups.keys()), index=list(age_groups.keys()).index(st.session_state.age_group))
+        if selected_age != st.session_state.age_group:
+            st.session_state.age_group = selected_age
+            st.session_state.goal_ml = age_groups[selected_age]["goal_ml"]
         st.write(f"Daily Goal: {st.session_state.goal_ml / 1000:.2f} Liters")
         new_goal = st.number_input("Adjust Goal (ml)", value=st.session_state.goal_ml, step=50)
         st.session_state.goal_ml = new_goal
